@@ -38,17 +38,17 @@ def process_data(entry, cursor, cnx):
         created_str = created.strftime('%Y-%m-%d %H:%M:%S')
 
         # Check if the post with same id already exists in the database
-        cursor.execute("SELECT id, num_comments FROM POSTS WHERE id = %s", (entry['id'],))
+        cursor.execute("SELECT id, num_comments FROM posts WHERE id = %s", (entry['id'],))
         row = cursor.fetchone()
 
         if row is not None:
             # Update num_comments value if id exists and num_comments are different
             if int(row[1]) != entry['num_comments']:
-                cursor.execute("UPDATE POSTS SET num_comments = %s WHERE id = %s",
+                cursor.execute("UPDATE posts SET num_comments = %s WHERE id = %s",
                           (entry['num_comments'], entry['id']))
         else:
             # Insert new row if id does not exist
-            cursor.execute("INSERT INTO POSTS (id, subreddit, permalink, title, selftext, created, num_comments, author) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+            cursor.execute("INSERT INTO posts (id, subreddit, permalink, title, selftext, created, num_comments, author) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
                       (entry['id'], entry['subreddit'], entry['permalink'], entry['title'], entry['selftext'],
                        created_str, entry['num_comments'], entry['author']))
         cnx.commit()
@@ -70,7 +70,7 @@ def crawl_json(list_subreddit, hdr):
                                   host='localhost', database='hongkongdata')
     cursor = cnx.cursor()
     print('Opened database successfully. ')
-    cursor.execute('''CREATE TABLE IF NOT EXISTS POSTS
+    cursor.execute('''CREATE TABLE IF NOT EXISTS posts
                  (id VARCHAR(20) PRIMARY KEY, subreddit TEXT, permalink TEXT, title TEXT, selftext TEXT, created TEXT, num_comments TEXT, author TEXT)''')
     subreddit = 'hongkong'
     limit = 100 #number of posts 
@@ -88,7 +88,7 @@ def crawl_json(list_subreddit, hdr):
                 current_num_comments = entry['data']['num_comments']
 
                 # 查询数据库中存储的帖子评论数量
-                cursor.execute("SELECT num_comments FROM POSTS WHERE id = %s", (entry['data']['id'],))
+                cursor.execute("SELECT num_comments FROM posts WHERE id = %s", (entry['data']['id'],))
                 row = cursor.fetchone()
 
                 # 如果找到帖子并且评论数量有变化，将帖子添加到 data_all
