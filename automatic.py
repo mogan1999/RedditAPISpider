@@ -1,17 +1,19 @@
-script = """#!/bin/bash
-
-source $(conda info --base)/etc/profile.d/conda.sh
-conda activate reddit
-
-while true; do
-    python crawl_posts.py
-    python comments.py
-    python gen_seq.py
-    echo "Current time: $(date)"
-    echo "Waiting for 24 hours for next crawling"
-    sleep 86400
-done
+script = """#!/usr/bin/bash\n
+\n
+conda activate reddit\n
+\n
+while true; do\n
+    echo "crawling posts"
+    python crawl_posts.py\n
+    echo "crawling comments"
+    python comments.py\n
+    echo "generating seq_json_file && export to mysql"
+    python gen_seq.py\n
+    echo "Current time: $(date)"\n
+    echo "Waiting for 24 hours for next crawling"\n
+    sleep 86400\n
+done\n
 """
 
-with open("run_scripts.sh", "w") as f:
+with open("run.sh", "w", newline='\n') as f:
     f.write(script)
