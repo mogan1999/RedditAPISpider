@@ -4,7 +4,7 @@ source $(conda info --base)/etc/profile.d/conda.sh
 conda activate reddit
 
 while true; do
-    python crawl_post.py
+    python crawl_posts.py
     python comments.py
     python gen_seq.py
     echo "Current time: $(date)"

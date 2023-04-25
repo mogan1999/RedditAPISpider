@@ -32,8 +32,6 @@ def crawl_comments_sw(start_urls, hdr, sub, json_path):
         url = u + '.json'    
         req = requests.get(url, headers=hdr)
         json_data = json.loads(req.text)
-        if (url == 'https://www.reddit.com/r/HongKong/comments/12r9jql/rhongkong_weekly_discussion/.json'):
-            print(json_data)
         data_all.append(json_data)
         # num_comments = json_data[0]['data']['children'][0]['data']['num_comments']
         # num.append(num_comments)
