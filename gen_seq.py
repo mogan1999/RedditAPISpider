@@ -13,12 +13,12 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from datetime import date, datetime
 import mysql.connector
-def create_comments_table():
+def create_comments_table(subreddit):
     connection = mysql.connector.connect(
         host="localhost",
         user="root",
         password="123456",
-        database="hongkongdata"
+        database=subreddit + 'data'
     )
 
     cursor = connection.cursor()
@@ -38,12 +38,12 @@ def create_comments_table():
     connection.commit()
     connection.close()
 
-def insert_comments_to_db(comments_data):
+def insert_comments_to_db(comments_data, subreddit):
     connection = mysql.connector.connect(
         host="localhost",
         user="root",
         password="123456",
-        database="hongkongdata"
+        database=subreddit + 'data'
     )
 
     cursor = connection.cursor()
@@ -171,8 +171,8 @@ def gen_sequences(path_base, subreddit):
     print('{} of sequences generated.'.format(len(seq_all)))
 
     # Insert comments to MySQL
-    create_comments_table()
-    insert_comments_to_db(comments_data)
+    create_comments_table(subreddit)
+    insert_comments_to_db(comments_data, subreddit)
 
     data_dict = {'date': today, 'subreddit': subreddit,
                  'com_num': len(list_com_count), 'com_mean': np.mean(list_com_count),

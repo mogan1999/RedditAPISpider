@@ -8,9 +8,8 @@ import pandas as pd
 # from gen_seq import gen_sequences
 from datetime import date
 
-def read_urls_sw():
+def read_urls_sw(sub):
     today = date.today().strftime("%Y%m%d")
-    sub = 'hongkong'
     json_path = f'./jsonpath/post/post_{sub}_{today}.json'
     #load json file and get urls
     with open(json_path, 'r') as f:
@@ -117,7 +116,7 @@ if __name__ == '__main__':
     #     stat_info.append(stat_subreddit)
     
     for sub in subreddits:
-        urls = read_urls_sw()
+        urls = read_urls_sw(sub)
         crawl_comments_sw(start_urls=urls, hdr=header, sub=sub, json_path=path_json)
         # stat_subreddit = gen_sequences(path_json, sub)
         # stat_info.append(stat_subreddit)

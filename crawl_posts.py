@@ -65,19 +65,22 @@ def crawl_json(list_subreddit, hdr):
     :param hdr: request header
     :return:
     """
-    # Update the connection details below to match your MySQL setup
-    cnx = mysql.connector.connect(user='root', password='123456',
-                                  host='localhost', database='hongkongdata')
-    cursor = cnx.cursor()
-    print('Opened database successfully. ')
-    cursor.execute('''CREATE TABLE IF NOT EXISTS posts
-                 (id VARCHAR(20) PRIMARY KEY, subreddit TEXT, permalink TEXT, title TEXT, selftext TEXT, created TEXT, num_comments TEXT, author TEXT)''')
-    subreddit = 'hongkong'
+
+    #subreddit = 'hongkong'
     limit = 100 #number of posts 
     timeframe = 'day' #hour, day, week, month, year, all
     listing = 'hot' # controversial, best, hot, new, random, rising, top
     for sub in tqdm(list_subreddit):
+        # Update the connection details below to match your MySQL setup
+        cnx = mysql.connector.connect(user='root', password='123456',
+                                    host='localhost', database=sub + 'data')
+        cursor = cnx.cursor()
+        print('Opened database successfully. ')
+        cursor.execute('''CREATE TABLE IF NOT EXISTS posts
+                    (id VARCHAR(20) PRIMARY KEY, subreddit TEXT, permalink TEXT, title TEXT, selftext TEXT, created TEXT, num_comments TEXT, author TEXT)''')
+        
         print('Crawling subreddit {}'.format(sub))
+        subreddit = sub
         url = f'https://www.reddit.com/r/{subreddit}/{listing}.json?limit={limit}&t={timeframe}'.format(sub)
         req = requests.get(url, headers=hdr)
         try:
