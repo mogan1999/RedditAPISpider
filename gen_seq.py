@@ -55,13 +55,21 @@ def insert_comments_to_db(comments_data, subreddit):
             cursor.execute(query, (post_id, title, user, body))
             result = cursor.fetchone()
 
-            # If the comment doesn't exist, insert it into the database
-            if not result:
+            if result:
+                # If the comment exists and its 'ups' value has changed, update the 'ups' value in the database
+                if result[-1] != ups:  # Assuming 'ups' is the last column in your 'comments' table
+                    query = f"UPDATE comments SET ups = %s WHERE post_id = %s AND title = %s AND user = %s AND body = %s"
+                    cursor.execute(query, (ups, post_id, title, user, body))
+                    connection.commit()
+            else:
+                # If the comment doesn't exist, insert it into the database
                 query = """INSERT INTO comments (post_id, title, created, user, body, ups)
                         VALUES (%s, %s, %s, %s, %s, %s)"""
                 cursor.execute(query, (post_id, title, created, user, body, ups))
                 connection.commit()
+    
     cursor.close()
+
 
 def gen_sequences(path_base, subreddit):
     """
