@@ -1,7 +1,5 @@
 script = """#!/usr/bin/bash\n
-\n
-conda activate reddit\n
-\n
+
 while true; do\n
     echo "crawling posts"
     python crawl_posts.py\n

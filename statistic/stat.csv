@@ -16,3 +16,6 @@ date,subreddit,com_num,com_mean,com_median,com_max
 20230428,macau,100,5.48,4.0,20
 20230517,hongkong,29,12.03448275862069,7.0,48
 20230517,macau,2,1.0,1.0,1
+20230517,hongkong,2,17.5,17.5,25
+20230517,hongkong,0,0,0,0
+20230517,macau,0,0,0,0

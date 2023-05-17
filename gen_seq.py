@@ -182,9 +182,15 @@ def gen_sequences(path_base, subreddit):
     create_comments_table(subreddit)
     insert_comments_to_db(comments_data, subreddit)
 
-    data_dict = {'date': today, 'subreddit': subreddit,
-                 'com_num': len(list_com_count), 'com_mean': np.mean(list_com_count),
-                 'com_median': np.median(list_com_count), 'com_max': max(list_com_count)}
+    data_dict = {
+        'date': today,
+        'subreddit': subreddit,
+        'com_num': len(list_com_count),
+        'com_mean': np.mean(list_com_count) if list_com_count else 0,
+        'com_median': np.median(list_com_count) if list_com_count else 0,
+        'com_max': max(list_com_count) if list_com_count else 0
+    }
+
     header_needed = not os.path.isfile('./statistic/stat.csv')
 
     with open('./statistic/stat.csv', 'a') as f:
