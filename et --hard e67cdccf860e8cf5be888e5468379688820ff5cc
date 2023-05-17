@@ -1,0 +1,67 @@
+[33mcommit 7b00cda3dce1a449062d0a4cbfd9a56a03b0beb3[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: mogan1999 <848137001@qq.com>
+Date:   Wed May 17 11:01:47 2023 +0800
+
+    20230517rebase
+
+[33mcommit e67cdccf860e8cf5be888e5468379688820ff5cc[m
+Author: mogan1999 <848137001@qq.com>
+Date:   Fri Apr 28 12:09:54 2023 +0800
+
+    Update gen_seq.py
+    
+    ups update bug fixed
+
+[33mcommit 68bbf5f06aad9661be1046c2aee9bc96bacc0a9e[m
+Author: mogan1999 <848137001@qq.com>
+Date:   Fri Apr 28 10:31:18 2023 +0800
+
+    Create crawl_posts500.py
+
+[33mcommit 02dc13c5a10a4541db7ad575ceb458cb6a954c1a[m
+Author: mogan1999 <848137001@qq.com>
+Date:   Fri Apr 28 10:13:25 2023 +0800
+
+    增加了澳门的获取
+
+[33mcommit 461ff2884ba245b74c9eff7dc16f6bc97b0e03cf[m
+Author: mogan1999 <848137001@qq.com>
+Date:   Tue Apr 25 22:44:19 2023 +0800
+
+    111
+
+[33mcommit a21686cab03e8b2b499d0d722ed3ca3cdb77b620[m
+Author: mogan1999 <848137001@qq.com>
+Date:   Tue Apr 25 22:29:19 2023 +0800
+
+    bug fixed
+
+[33mcommit 1ef495ea8da0d2baad91a5c946c5311b593d736b[m
+Author: mogan1999 <848137001@qq.com>
+Date:   Tue Apr 25 22:19:50 2023 +0800
+
+    bug fixed
+
+[33mcommit c35b0298322335f26b95bcd4670e53fe72eca893[m
+Author: mogan1999 <848137001@qq.com>
+Date:   Tue Apr 25 21:56:35 2023 +0800
+
+    Update requirements.txt
+
+[33mcommit 66ecf3a2186cd9a92edd59a73a6e3f4920c2a3c0[m
+Author: mogan1999 <848137001@qq.com>
+Date:   Tue Apr 25 21:44:13 2023 +0800
+
+    add requirements
+
+[33mcommit 53d587652674470b5b0d07331555509c2b42180a[m
+Author: mogan1*** <848137001@qq.com>
+Date:   Tue Apr 25 20:02:59 2023 +0800
+
+    Add files via upload
+
+[33mcommit d12d8bc18a7c26831042943084ff1ae94919a130[m
+Author: mogan1*** <848137001@qq.com>
+Date:   Tue Apr 25 20:01:32 2023 +0800
+
+    Initial commit

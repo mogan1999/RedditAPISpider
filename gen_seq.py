@@ -8,9 +8,9 @@ import csv
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
+# import matplotlib
+# matplotlib.use('Agg')
+# import matplotlib.pyplot as plt
 from datetime import date, datetime
 import mysql.connector
 def create_comments_table(subreddit):
