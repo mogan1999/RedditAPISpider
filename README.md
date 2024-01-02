@@ -11,3 +11,4 @@ python automatic.py
 ```
 conda activate reddit && cd ./RedditAPISpider && bash run.sh
 ```
+记得不定期检查/RedditAPISpider/jsonpath/seq目录下的文件是否会过大，若文件过大建议删除
