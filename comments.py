@@ -1,12 +1,16 @@
-import requests
+import argparse
 import json
-import time
 import os
-from tqdm import tqdm
-import pandas as pd
+import time
 # from crawl_posts import crawl_json
 # from gen_seq import gen_sequences
 from datetime import date
+
+import pandas as pd
+import requests
+from requests.auth import HTTPBasicAuth
+from tqdm import tqdm
+
 
 def read_urls_sw(sub):
     today = date.today().strftime("%Y%m%d")
@@ -17,10 +21,24 @@ def read_urls_sw(sub):
 
         start_urls = []
         for entry in alldata:
-            start_urls.append('https://www.reddit.com' + entry['permalink'])
+            start_urls.append('https://oauth.reddit.com' + entry['permalink'])
         return start_urls
 
 
+def get_reddit_token(client_id, client_secret):
+    """
+    获取Reddit的OAuth2访问令牌。
+    """
+    auth = HTTPBasicAuth(client_id, client_secret)
+    data = {'grant_type': 'client_credentials'}
+    headers = {'User-Agent': 'YourApp/0.1 by mogan1999'}
+    response = requests.post('https://www.reddit.com/api/v1/access_token', auth=auth, data=data, headers=headers)
+    
+    if response.status_code == 200:
+        return response.json()['access_token']
+    else:
+        print("获取访问令牌失败，状态码：", response.status_code)
+        return None
 
 
 def crawl_comments_sw(start_urls, hdr, sub, json_path):
@@ -82,7 +100,7 @@ def crawl_comments_sub(start_urls, hdr, sub, json_path):
                 url = data[0]['data']['children'][0]['data']['url']
                 urls_crawled.append(url)
     for u in tqdm(start_urls):
-        if u not in urls_crawled and 'https://www.reddit.com/r/' in u:
+        if u not in urls_crawled and 'https://oauth.reddit.com/r/' in u:
             url = u + '.json'
             req = requests.get(url, headers=hdr)
             json_data = json.loads(req.text)
@@ -94,10 +112,15 @@ def crawl_comments_sub(start_urls, hdr, sub, json_path):
 
 
 if __name__ == '__main__':
+    client_id = 'c8w6xFd494SnadOJg4XWRw'
+    client_secret = 'caK60Zh2CBzawcYGGxgL7p-xmr5iyw' 
+    access_token = get_reddit_token(client_id, client_secret)
+    if access_token is None:
+        print("未获取到访问令牌，无法进行爬取。")
+        exit(1)
     header = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.0.0',
-        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
-        'Cache-Control': 'max-age=0'
+        'Authorization': f'bearer {access_token}',
+        'User-Agent': 'YourApp/0.1 by mogan1999'
         }
 
     path_json = "./jsonpath"

@@ -10,7 +10,7 @@ while true; do
     python comments.py
 
     echo "generating seq_json_file && export to mysql"
-    python gen_seq.py
+    python gen_seq.py 
 
     echo "Current time: $(date)"
 
